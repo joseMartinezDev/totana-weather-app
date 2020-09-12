@@ -1,18 +1,1092 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    android:orientation="vertical"
+    android:background="@color/topbarColor"
+    >
 
     <TextView
+        android:id="@+id/lastLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:text="TextView"
+        android:textColor="@color/fontColor"
+        android:textSize="15sp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.MainActivity">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_title_bar_background_colors"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/left_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewToday"
+                app:layout_constraintEnd_toStartOf="@+id/textViewToday"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewToday" />
+
+            <TextView
+                android:id="@+id/textViewToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/label_today"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewTodayIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="35dp"
+                android:text="●"
+                android:textAlignment="center"
+                android:textColor="@color/redColor"
+                android:textSize="24sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewToday"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/right_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewTodayIcon"
+                app:layout_constraintTop_toTopOf="@+id/left_divider" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="2dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewToday">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDescCur"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical"
+                    app:boxStrokeColor="@color/fontColor">
+
+
+                    <TextView
+                        android:id="@+id/labelDescCur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIconCur"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputCurTemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/currentTemp_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelCurTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputCurFeel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/currentFeels_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelCurFeel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast1"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast1" />
+
+            <TextView
+                android:id="@+id/textViewForecast1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/forecastOne_label"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <View
+                android:id="@+id/right_divider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast1"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast1" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon1"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast2"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast2" />
+
+            <TextView
+                android:id="@+id/textViewForecast2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
+
+            <View
+                android:id="@+id/right_divider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast2"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast2" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast2">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc2"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon2"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                    <TextView
+                        android:id="@+id/labelTempMin2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast3"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast3" />
+
+            <TextView
+                android:id="@+id/textViewForecast3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <View
+                android:id="@+id/right_divider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast3"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast3" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast3">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc3"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon3"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast4"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast4" />
+
+            <TextView
+                android:id="@+id/textViewForecast4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+            <View
+                android:id="@+id/right_divider4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast4"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast4" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast4">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc4"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon4"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider5"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast5"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast5" />
+
+            <TextView
+                android:id="@+id/textViewForecast5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+
+            <View
+                android:id="@+id/right_divider5"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast5"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast5">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc5"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon5"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider6"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast6"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast6" />
+
+            <TextView
+                android:id="@+id/textViewForecast6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+            <View
+                android:id="@+id/right_divider6"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast6"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast6" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast6">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc6"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon6"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/left_divider7"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast7"
+                app:layout_constraintEnd_toStartOf="@+id/textViewForecast7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast7" />
+
+            <TextView
+                android:id="@+id/textViewForecast7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+            <View
+                android:id="@+id/right_divider7"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewForecast7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewForecast7"
+                app:layout_constraintTop_toTopOf="@+id/textViewForecast7" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForecast7">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDesc7"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/labelDesc7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/forecastIcon7"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMin7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMin_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputTempMax7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempMax_label"
+                        android:textColor="@color/tempColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:textColor="@color/fontColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                android:background="@color/Transparent80"
+                android:text="@string/button_label"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/font_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
