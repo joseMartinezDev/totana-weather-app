@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Totana-Weather-App</string>
+    <string name="app_name">El tiempo en Totana</string>
+    <string name="label_main">Tiempo en Totana</string>
+    <string name="label_today">Ahora mismo</string>
+    <string name="currentTemp_label">Tempt.</string>
+    <string name="currentFeels_label">Sensación</string>
+    <string name="tempMin_label">Mínima</string>
+    <string name="tempMax_label">Máxima</string>
+    <string name="forecastOne_label">Mañana</string>
+    <string name="humid_label">Humedad</string>
+    <string name="button_label">Actualizar</string>
 </resources>
