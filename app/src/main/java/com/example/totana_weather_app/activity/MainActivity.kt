@@ -29,7 +29,7 @@ import kotlin.math.roundToInt
 class MainActivity : AppCompatActivity(), FetchCompleteListener {
     private val client = OkHttpClient()
     private val request = OkHttpRequest(client)
-    private val url = "https://totanaapi.nw.r.appspot.com/"
+    private val url = "https://europe-west6-totanaweather.cloudfunctions.net/app"
     private lateinit var currentObject: JSONObject
     private lateinit var dailyForecast: JSONArray
     private lateinit var currentWeather: JSONObject
